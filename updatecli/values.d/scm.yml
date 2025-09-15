@@ -1,0 +1,6 @@
+scm:
+  enabled: true
+  owner: elastic
+  repository: observability-robots-playground-public
+  branch: main
+  commitusingapi: true
