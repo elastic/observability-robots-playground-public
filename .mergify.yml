@@ -1,0 +1,68 @@
+commands_restrictions:
+  backport:
+    conditions:
+      - or:
+        - sender-permission>=write
+        - sender=github-actions[bot]
+
+queue_rules:
+  - name: default
+    merge_method: squash
+    conditions:
+      - check-success=buildkite/observability-robots-playground-public
+      - check-success=CLA
+
+defaults:
+  actions:
+    backport:
+      title: "[{{ destination_branch }}] (backport #{{ number }}) {{ title }}"
+      assignees:
+        - "{{ author }}"
+      labels:
+        - "backport"
+
+pull_request_rules:
+  - name: automatic approval for updatecli pull requests with changes in .buildkite
+    conditions:
+      - author=github-actions[bot]
+      - check-success=buildkite/observability-robots-playground-public
+      - or:
+        - files~=^.buildkite/(pipeline.yml|bk.integration.pipeline.yml)$
+      - head~=^updatecli_.*
+    actions:
+      review:
+        type: APPROVE
+        message: Automatically approving mergify
+
+  - name: automatic squash and merge with success checks and the files matching the regex .buildkite is modified.
+    conditions:
+      - author=github-actions[bot]
+      - check-success=buildkite/observability-robots-playground-public
+      - or:
+        - files~=^.buildkite/(pipeline.yml|bk.integration.pipeline.yml)$
+      - head~=^updatecli_.*
+      - "#approved-reviews-by>=1"
+    actions:
+      queue:
+        name: default
+
+  - name: rebase pull requests for the VM autobump and ESS version pinning
+    conditions:
+      - author=github-actions[bot]
+      - or:
+        - files~=^.buildkite/(pipeline.yml|bk.integration.pipeline.yml)$
+      - head~=^updatecli_.*
+      - "#check-failure>0"
+      - schedule=Mon-Fri 04:00-06:00[Europe/Paris]
+    actions:
+      rebase:
+
+  - name: self-assign PRs
+    conditions:
+      - -merged
+      - -closed
+      - "#assignee=0"
+    actions:
+      assign:
+        add_users:
+          - "{{ author }}"

@@ -1,0 +1,6 @@
+# Top-level files ownership
+/catalog-info.yaml @elastic/observablt-ci
+
+# Sub-directories/files ownership. Remember that order matters; the last matching pattern takes the most precedence.
+/.buildkite @elastic/observablt-ci
+/.github @elastic/observablt-ci
