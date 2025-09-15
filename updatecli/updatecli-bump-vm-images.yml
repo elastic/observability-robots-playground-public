@@ -34,7 +34,7 @@ sources:
     name: Get latest available build
     kind: json
     spec:
-      file: https://storage.googleapis.com/artifacts-api/vm-images/elastic-agent/latest.json
+      file: https://storage.googleapis.com/artifacts-api/vm-images/observability-robots-playground-public/latest.json
       key: .date
 
 conditions:
