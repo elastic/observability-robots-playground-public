@@ -21,7 +21,7 @@ spec:
     spec:
       branch_configuration: "main 9.*"
       repository: elastic/observability-robots-playground-public
-      pipeline_file: ".buildkite/observability-robots-playground-public"
+      pipeline_file: ".buildkite/pipeline.yml"
       provider_settings:
         build_pull_request_forks: false
         build_pull_requests: true
