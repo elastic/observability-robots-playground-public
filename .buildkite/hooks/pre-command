@@ -3,3 +3,5 @@
 set -euo pipefail
 
 env | sort
+
+echo "Current Git user.name: $(git config user.name || echo 'not set')"
