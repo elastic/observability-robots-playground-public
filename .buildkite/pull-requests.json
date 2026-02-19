@@ -46,8 +46,7 @@
 				"^catalog-info.yaml$"
 			],
 			"always_require_ci_on_changed": [
-				"^qa/acceptance/",
-				"^ci/acceptance_tests.sh"
+				".buildkite/scripts/smart.sh"
 			]
 		}
     ]
