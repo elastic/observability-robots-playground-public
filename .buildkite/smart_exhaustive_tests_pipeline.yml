@@ -1,6 +1,6 @@
 steps:
   - label: "Trigger observability-robots-playground-public-smart for PRs with .buildkite/scripts/smart.sh changes"
-    if: build.pull_request.id != null && build.env("GITHUB_PR_TRIGGER_COMMENT") !~ /(?i)^run\s+exhaustive\s+tests/
+    if: build.pull_request.id != null && build.env("GITHUB_PR_TRIGGER_COMMENT") !~ /run\s+exhaustive\s+tests/
     plugins:
       - monorepo-diff#v1.0.1:
           diff: "git diff --name-only origin/${BUILDKITE_PULL_REQUEST_BASE_BRANCH}...HEAD"
@@ -20,7 +20,7 @@ steps:
                     ELASTIC_SLACK_NOTIFICATIONS_ENABLED: false
 
   - label: "Trigger observability-robots-playground-public-smart for GitHub comments"
-    if: build.env("GITHUB_PR_TRIGGER_COMMENT") =~ /(?i)^run\s+exhaustive\s+tests/
+    if: build.env("GITHUB_PR_TRIGGER_COMMENT") =~ /run\s+exhaustive\s+tests/
     trigger: "observability-robots-playground-public-smart"
     build:
       commit: "HEAD"
