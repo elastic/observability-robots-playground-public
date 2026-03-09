@@ -12,6 +12,7 @@ permissions:
 jobs:
   debug:
     runs-on: ubuntu-slim
+    if: github.event.state == 'failure'
     steps:
       - name: Debug event payload
         env:
@@ -27,6 +28,7 @@ jobs:
           echo "Target URL: ${{ github.event.target_url }}"
           echo "Ref: ${{ github.ref }}"
           echo "SHA: ${{ github.event.sha }}"
+
   run:
     if: >-
       github.event_name == 'status' &&
@@ -35,5 +37,6 @@ jobs:
     uses: elastic/ai-github-actions/.github/workflows/gh-aw-estc-pr-buildkite-detective.lock.yml@v0
     with:
       buildkite-org: "elastic"
+      allowed-bot-users: "buildkite-limited-access[bot]"
     secrets:
       COPILOT_GITHUB_TOKEN: ${{ secrets.COPILOT_GITHUB_TOKEN }}
