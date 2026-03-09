@@ -1,0 +1,30 @@
+name: PR Buildkite Detective
+on:
+  check_run:
+    types: [completed]
+
+permissions:
+  actions: read
+  contents: read
+  discussions: write
+  issues: write
+  pull-requests: write  # required by gh-aw compiler for add-comment (github/gh-aw#16673)
+
+jobs:
+  debug:
+    runs-on: ubuntu-slim
+    steps:
+      - name: Debug event payload
+        run: echo "${{ toJson(github.event) }}"
+      - name: Debug context
+        run: echo "${{ toJson(github) }}"
+
+  run:
+    if: >-
+      (github.event_name == 'status' && github.event.state == 'failure') ||
+      (github.event_name == 'check_run' && github.event.check_run.conclusion == 'failure' && contains(github.event.check_run.name, 'buildkite'))
+    uses: elastic/ai-github-actions/.github/workflows/gh-aw-estc-pr-buildkite-detective.lock.yml@v0
+    with:
+      buildkite-org: "elastic"
+    secrets:
+      COPILOT_GITHUB_TOKEN: ${{ secrets.COPILOT_GITHUB_TOKEN }}
