@@ -18,9 +18,20 @@ jobs:
           GITHUB_CONTEXT: ${{ toJson(github) }}
         run: echo "$GITHUB_CONTEXT"
 
+      - name: Debug key fields
+        continue-on-error: true
+        run: |
+          echo "Event name: ${{ github.event_name }}"
+          echo "State: ${{ github.event.state }}"
+          echo "Context: ${{ github.event.context }}"
+          echo "Target URL: ${{ github.event.target_url }}"
+          echo "Ref: ${{ github.ref }}"
+          echo "SHA: ${{ github.event.sha }}"
   run:
     if: >-
-      (github.event_name == 'status' && github.event.state == 'failure' && github.event.context == 'buildkite/observability-robots-playground-public')
+      github.event_name == 'status' &&
+      github.event.state == 'failure' &&
+      github.event.context == 'buildkite/observability-robots-playground-public'
     uses: elastic/ai-github-actions/.github/workflows/gh-aw-estc-pr-buildkite-detective.lock.yml@v0
     with:
       buildkite-org: "elastic"
