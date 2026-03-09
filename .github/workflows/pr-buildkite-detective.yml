@@ -14,9 +14,9 @@ jobs:
     runs-on: ubuntu-slim
     steps:
       - name: Debug event payload
-        run: echo "${{ toJson(github.event) }}"
-      - name: Debug context
-        run: echo "${{ toJson(github) }}"
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
 
   run:
     if: >-
