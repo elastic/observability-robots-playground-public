@@ -6,5 +6,7 @@ steps:
   - label: "check-ci"
     key: "check-ci"
     command: "echo 'CI is running'"
-  - label: "error"
+  - label: "true"
     command: "true"
+  - label: "error"
+    command: "false"
