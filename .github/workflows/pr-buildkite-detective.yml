@@ -1,7 +1,6 @@
 name: PR Buildkite Detective
 on:
-  check_run:
-    types: [completed]
+  status:
 
 permissions:
   actions: read
@@ -21,8 +20,7 @@ jobs:
 
   run:
     if: >-
-      (github.event_name == 'status' && github.event.state == 'failure') ||
-      (github.event_name == 'check_run' && github.event.check_run.conclusion == 'failure' && github.event.check_run.name == 'buildkite/observability-robots-playground-public')
+      (github.event_name == 'status' && github.event.state == 'failure' && github.event.context == 'buildkite/observability-robots-playground-public')
     uses: elastic/ai-github-actions/.github/workflows/gh-aw-estc-pr-buildkite-detective.lock.yml@v0
     with:
       buildkite-org: "elastic"
