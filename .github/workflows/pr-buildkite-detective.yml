@@ -11,6 +11,14 @@ permissions:
   pull-requests: write  # required by gh-aw compiler for add-comment (github/gh-aw#16673)
 
 jobs:
+  debug:
+    runs-on: ubuntu-slim
+    steps:
+      - name: Debug event payload
+        run: echo "${{ toJson(github.event) }}"
+      - name: Debug context
+        run: echo "${{ toJson(github) }}"
+
   run:
     if: >-
       (github.event_name == 'status' && github.event.state == 'failure') ||
@@ -18,9 +26,5 @@ jobs:
     uses: elastic/ai-github-actions/.github/workflows/gh-aw-estc-pr-buildkite-detective.lock.yml@v0
     with:
       buildkite-org: "elastic"
-      additional-instructions: >-
-        The BUILDKITE_API_TOKEN secret is not needed, the buildkite pipelines are public and the detective
-        will only use the Buildkite API to fetch logs from failed builds.
     secrets:
       COPILOT_GITHUB_TOKEN: ${{ secrets.COPILOT_GITHUB_TOKEN }}
-      BUILDKITE_API_TOKEN: "none"
