@@ -33,10 +33,9 @@ jobs:
     if: >-
       github.event_name == 'status' &&
       github.event.state == 'failure' &&
-      github.event.context == 'buildkite/observability-robots-playground-public'
-    uses: elastic/ai-github-actions/.github/workflows/gh-aw-estc-pr-buildkite-detective.lock.yml@v0
+      startsWith(github.event.context, 'buildkite/')
+    uses: elastic/ai-github-actions/.github/workflows/gh-aw-estc-pr-buildkite-detective.lock.yml@main
     with:
       buildkite-org: "elastic"
-      allowed-bot-users: "buildkite-limited-access[bot]"
     secrets:
       COPILOT_GITHUB_TOKEN: ${{ secrets.COPILOT_GITHUB_TOKEN }}
