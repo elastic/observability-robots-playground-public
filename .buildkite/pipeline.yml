@@ -4,6 +4,3 @@ env:
 
 steps:
   - command: "make test"
-
-  - label: "error"
-    command: "true"
