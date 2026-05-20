@@ -3,8 +3,7 @@
 env:
 
 steps:
-  - label: "check-ci"
-    key: "check-ci"
-    command: "echo 'CI is running'"
+  - command: "make test"
+
   - label: "error"
     command: "true"
