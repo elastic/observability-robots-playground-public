@@ -41,7 +41,7 @@ spec:
         SLACK_NOTIFICATIONS_ALL_BRANCHES: "false"
         SLACK_NOTIFICATIONS_ON_SUCCESS: "false"
       teams:
-        ingest-fp:
+        streams:
           access_level: MANAGE_BUILD_AND_READ
         observablt-robots:
           access_level: MANAGE_BUILD_AND_READ
@@ -92,7 +92,7 @@ spec:
         SLACK_NOTIFICATIONS_ALL_BRANCHES: "false"
         SLACK_NOTIFICATIONS_ON_SUCCESS: "false"
       teams:
-        ingest-fp:
+        streams:
           access_level: MANAGE_BUILD_AND_READ
         observablt-robots:
           access_level: MANAGE_BUILD_AND_READ
