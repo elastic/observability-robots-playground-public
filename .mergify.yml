@@ -2,13 +2,13 @@ commands_restrictions:
   backport:
     conditions:
       - or:
-        - sender-permission>=write
-        - sender=github-actions[bot]
+          - sender-permission>=write
+          - sender=github-actions[bot]
 
 queue_rules:
   - name: default
     merge_method: squash
-    conditions:
+    merge_conditions:
       - check-success=buildkite/observability-robots-playground-public
       - check-success=CLA
 
@@ -27,7 +27,7 @@ pull_request_rules:
       - author=github-actions[bot]
       - check-success=buildkite/observability-robots-playground-public
       - or:
-        - files~=^.buildkite/(pipeline.yml|bk.integration.pipeline.yml)$
+          - files~=^.buildkite/(pipeline.yml|bk.integration.pipeline.yml)$
       - head~=^updatecli_.*
     actions:
       review:
@@ -39,7 +39,7 @@ pull_request_rules:
       - author=github-actions[bot]
       - check-success=buildkite/observability-robots-playground-public
       - or:
-        - files~=^.buildkite/(pipeline.yml|bk.integration.pipeline.yml)$
+          - files~=^.buildkite/(pipeline.yml|bk.integration.pipeline.yml)$
       - head~=^updatecli_.*
       - "#approved-reviews-by>=1"
     actions:
@@ -50,7 +50,7 @@ pull_request_rules:
     conditions:
       - author=github-actions[bot]
       - or:
-        - files~=^.buildkite/(pipeline.yml|bk.integration.pipeline.yml)$
+          - files~=^.buildkite/(pipeline.yml|bk.integration.pipeline.yml)$
       - head~=^updatecli_.*
       - "#check-failure>0"
       - schedule=Mon-Fri 04:00-06:00[Europe/Paris]
