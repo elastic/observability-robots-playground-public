@@ -4,3 +4,6 @@
 # Sub-directories/files ownership. Remember that order matters; the last matching pattern takes the most precedence.
 /.buildkite @elastic/observablt-ci
 /.github @elastic/observablt-ci
+
+# Agentic workflow client triggers (elastic/oblt-aw distribution)
+/.github/workflows/trigger-obs-aw-* @elastic/observablt-ci
