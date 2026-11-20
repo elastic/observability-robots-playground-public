@@ -8,7 +8,7 @@ commands_restrictions:
 queue_rules:
   - name: default
     merge_method: squash
-    conditions:
+    merge_conditions:
       - check-success=buildkite/observability-robots-playground-public
       - check-success=CLA
 
